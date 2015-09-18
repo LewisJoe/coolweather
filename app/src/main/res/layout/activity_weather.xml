@@ -33,7 +33,8 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:textColor="#fff"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:text="2015"/>
 
         <LinearLayout
             android:id="@+id/weather_info_layout"
@@ -48,7 +49,8 @@
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:textColor="#fff"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:text="当前日期"/>
 
             <TextView
                 android:id="@+id/weather_desp"
@@ -57,7 +59,8 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 android:textColor="#fff"
-                android:textSize="40sp"/>
+                android:textSize="40sp"
+                android:text="天气"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -71,7 +74,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:textColor="#fff"
-                    android:textSize="40sp"/>
+                    android:textSize="40sp"
+                    android:text="气温1"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -89,7 +93,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:textColor="#fff"
-                    android:textSize="40sp"/>
+                    android:textSize="40sp"
+                    android:text="气温2"/>
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

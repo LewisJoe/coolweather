@@ -2,9 +2,9 @@ package com.lewis.coolweather.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,10 +16,12 @@ import android.widget.TextView;
 import com.lewis.coolweather.R;
 import com.lewis.coolweather.util.HttpCallbackListener;
 import com.lewis.coolweather.util.HttpUtil;
+import com.lewis.coolweather.util.LogUtil;
 import com.lewis.coolweather.util.Utility;
 
 public class WeatherActivity extends ActionBarActivity implements View.OnClickListener{
 
+    private final static String TAG = "WeatherActivity";
     private LinearLayout weatherInfoLayout;
     /**
      * 用于显示城市名
@@ -104,7 +106,7 @@ public class WeatherActivity extends ActionBarActivity implements View.OnClickLi
      */
     private void queryWeatherCode(String countyCode) {
         String address = "http://www.weather.com.cn/data/list3/city"+countyCode+".xml";
-        queryFromServer(address,"countyCode");
+        queryFromServer(address, "countyCode");
     }
 
     @Override
@@ -156,8 +158,8 @@ public class WeatherActivity extends ActionBarActivity implements View.OnClickLi
      * @param weatherCode 天气代码
      */
     private void queryWeatherInfo(String weatherCode) {
-        String address = "http://www.weaher.com.cn/data/cityinfo/"+weatherCode+".html";
-        queryFromServer(address,"weatherCode");
+        String address = "http://www.weather.com.cn/adat/cityinfo/"+weatherCode+".html";
+        queryFromServer(address, "weatherCode");
     }
 
     /**
@@ -169,24 +171,26 @@ public class WeatherActivity extends ActionBarActivity implements View.OnClickLi
         HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
             @Override
             public void onFinish(String response) {
-                if ("countyCode".equals(type)){
-                    if (!TextUtils.isEmpty(response)){
+                if ("countyCode".equals(type)) {
+                    if (!TextUtils.isEmpty(response)) {
                         //从服务器返回的数据解析出天气代号
                         String[] array = response.split("\\|");
-                        if (array != null && array.length > 0){
+                        LogUtil.d("array",array[0]+","+array[1]);
+                        if (array != null && array.length == 2) {
                             String weatherCode = array[1];
                             queryWeatherInfo(weatherCode);
                         }
-                    }else if ("weatherCode".equals(type)){
-                        //处理服务器返回的天气信息
-                        Utility.handleWeatherResponse(WeatherActivity.this,response);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                showWeather();
-                            }
-                        });
                     }
+                } else if ("weatherCode".equals(type)) {
+                    LogUtil.d("Test", response);
+                    //处理服务器返回的天气信息
+                    Utility.handleWeatherResponse(WeatherActivity.this, response);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showWeather();
+                        }
+                    });
                 }
             }
 
