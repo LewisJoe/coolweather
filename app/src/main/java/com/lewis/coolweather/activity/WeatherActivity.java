@@ -176,7 +176,7 @@ public class WeatherActivity extends ActionBarActivity implements View.OnClickLi
                         //从服务器返回的数据解析出天气代号
                         String[] array = response.split("\\|");
                         LogUtil.d("array",array[0]+","+array[1]);
-                        if (array != null && array.length == 2) {
+                        if (array != null && array.length > 0) {
                             String weatherCode = array[1];
                             queryWeatherInfo(weatherCode);
                         }
